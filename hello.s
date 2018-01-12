@@ -1,7 +1,7 @@
 	.file	"hello.c"
 	.section	.rodata
 .LC0:
-	.string	"%s"
+	.string	"%d"
 	.text
 	.globl	main
 	.type	main, @function
@@ -13,44 +13,28 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movq	%fs:40, %rax
-	movq	%rax, -8(%rbp)
-	xorl	%eax, %eax
-	movabsq	$7453010373643565421, %rax
-	movq	%rax, -17(%rbp)
-	movb	$0, -9(%rbp)
-	movl	$0, -24(%rbp)
-	jmp	.L2
-.L3:
-	movl	-24(%rbp), %eax
-	cltq
-	movzbl	-17(%rbp,%rax), %eax
-	movsbl	%al, %eax
-	movl	%eax, %edi
-	call	tolower@PLT
-	movl	%eax, %edx
-	movl	-24(%rbp), %eax
-	cltq
-	movb	%dl, -17(%rbp,%rax)
-	addl	$1, -24(%rbp)
-.L2:
-	movl	-24(%rbp), %eax
-	cltq
-	movzbl	-17(%rbp,%rax), %eax
-	testb	%al, %al
-	jne	.L3
-	leaq	-17(%rbp), %rax
-	movq	%rax, %rsi
+	subq	$16, %rsp
+	movl	$78, -16(%rbp)
+	movl	$40, -12(%rbp)
+	movl	-16(%rbp), %eax
+	cltd
+	idivl	-12(%rbp)
+	movl	%eax, -8(%rbp)
+	movl	-16(%rbp), %eax
+	cltd
+	idivl	-12(%rbp)
+	movl	%edx, -4(%rbp)
+	movl	-8(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	-4(%rbp), %eax
+	movl	%eax, %esi
 	leaq	.LC0(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movl	$0, %eax
-	movq	-8(%rbp), %rcx
-	xorq	%fs:40, %rcx
-	je	.L5
-	call	__stack_chk_fail@PLT
-.L5:
 	leave
 	.cfi_def_cfa 7, 8
 	ret

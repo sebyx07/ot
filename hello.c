@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include <ctype.h>
 int main(){ 
-  char str[] = "myString";
-  for(int i = 0; str[i]; i++){
-    str[i] = tolower(str[i]);
-  }
-  printf("%s", str);
+  int a = 78, b = 40,
+      c = a / b, d = a % b;
+
+  printf("%d", c);
+  printf("%d", d);
   return 0;
 }
